@@ -1,7 +1,7 @@
 # hadoop-practice
 
 
-本项目 目前只要存放 nginx日志解析工具类：
+本项目 目前存放 nginx日志解析工具类：
 
 调用方法参考单元测试类：/src/test/java/cn/edu/buaa/binarywang/hadoop/practice/LogParserTest.java
 
