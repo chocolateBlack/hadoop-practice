@@ -17,11 +17,6 @@ public class LogRecord {
 	private String remoteUser; //remote_user: 记录客户端用户名称, –
 	private String timeLocal;//time_local: 记录访问时间与时区, [18/Sep/2013:06:49:57 +0000]
 	private String request; //request: 记录请求的url与http协议, “GET /images/my.jpg HTTP/1.1″
-
-	public void setRequest(String request) {
-		this.request = request;
-	}
-
 	private int status; //status: 记录请求状态,成功是200, 200
 	private long bodyBytesSent; //body_bytes_sent: 记录发送给客户端文件主体内容大小, 19939
 	private String httpReferer; //http_referer: 用来记录从那个页面链接访问过来的, “http://www.angularjs.cn/A00n”
@@ -31,6 +26,10 @@ public class LogRecord {
 	private String requestMethod;//GET,POST,...
 	private String requestUrl;
 	private String requestHttpVersion;//HTTP/1.1
+
+	public void setRequest(String request) {
+		this.request = request;
+	}
 
 	public String getRequestMethod() {
 		return requestMethod;
