@@ -13,10 +13,10 @@ import cn.edu.buaa.practice.parser.LogParser;
 
 import com.google.common.base.Optional;
 
-public class PVMapper extends Mapper<LongWritable, Text, Text, IntWritable> {  
+public class IPMapper extends Mapper<LongWritable, Text, Text, Text> {  
   
-        private final IntWritable one = new IntWritable(1);  
         private Text requestUrl = new Text();  
+        Text ip = new Text();
   
         public void map(LongWritable key, Text value, Context context)  
                 throws IOException, InterruptedException {  
@@ -26,7 +26,8 @@ public class PVMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
             if (logRecord.isPresent()) {
                 LogRecord log =  logRecord.get();
                 requestUrl.set(log.getRequestUrl());
-                context.write(requestUrl, one);
+                ip.set(log.getRemoteAddr());
+                context.write(requestUrl, ip);
 			} else {
 				Counter count = context.getCounter("LogRecord_Parser", "logRecord_Value_Is_Absent");
 				count.increment(1);
