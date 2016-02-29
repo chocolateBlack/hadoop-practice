@@ -1,12 +1,14 @@
-package cn.edu.buaa.binarywang.hadoop.practice;
+package cn.edu.buaa.practice.parser;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
+import cn.edu.buaa.practice.bean.LogRecord;
+
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
-import com.google.common.base.Splitter;
 
 public class LogParser {
 	public static Optional<LogRecord> parse(String value) {
@@ -15,7 +17,8 @@ public class LogParser {
 			return Optional.absent();
 		}
 
-		List<String> splitStrings = Splitter.on(" ").splitToList(value);
+		List<String> splitStrings = Arrays.asList(value.split(" "));
+//		List<String> splitStrings = Splitter.on(" ").splitToList(value);
 
 		LogRecord record = new LogRecord();
 		record.setRemoteAddr(splitStrings.get(0));

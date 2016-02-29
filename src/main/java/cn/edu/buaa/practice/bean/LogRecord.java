@@ -1,4 +1,4 @@
-package cn.edu.buaa.binarywang.hadoop.practice;
+package cn.edu.buaa.practice.bean;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
