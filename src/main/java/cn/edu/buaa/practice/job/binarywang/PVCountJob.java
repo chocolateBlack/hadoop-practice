@@ -18,16 +18,13 @@ import cn.edu.buaa.practice.mr.PVReducer;
 
 public class PVCountJob {
 
-    private static final String HADOOP_ROOT = "F:\\hadoop\\hadoop-2.6.3";
-    private static final String HDFS_ROOT_PATH = "hdfs://192.168.158.130:9000";
-
     public static void main(String[] args)
             throws IOException, ClassNotFoundException, InterruptedException {
-        System.setProperty("hadoop.home.dir", HADOOP_ROOT);
+        System.setProperty("hadoop.home.dir", HadoopConfig.HADOOP_ROOT);
 
         BasicConfigurator.configure();
-        String input = HDFS_ROOT_PATH + "/user/rt/input";///access.log.10
-        String output = HDFS_ROOT_PATH + "/user/rt/pv_output";
+        String input = HadoopConfig.HDFS_ROOT_PATH + "/user/rt/input";///access.log.10
+        String output = HadoopConfig.HDFS_ROOT_PATH + "/user/rt/pv_output";
 
         Configuration conf = new Configuration();
         Job job = Job.getInstance(conf, "pv count");
