@@ -63,5 +63,14 @@ public class LogParserTest {
         System.err.println("爬虫日志条数：" + robotLines.size());
         System.err.println(Joiner.on("\n").join(robotLines));
     }
+    
+    public static void main(String[] args) {
+		String dd="18/Sep/2013:08:36:05";
+		String [] ss = dd.split(":");
+		for(int i = 0; i < ss.length; i++){
+			System.out.println(ss[i]);
+		}
+		
+	}
 
 }
