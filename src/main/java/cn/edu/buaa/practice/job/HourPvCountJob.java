@@ -2,7 +2,7 @@ package cn.edu.buaa.practice.job;
   
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.BytesWritable;
+import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
@@ -10,30 +10,30 @@ import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 
-import cn.edu.buaa.practice.mr.HyperLogLogIPCombiner;
-import cn.edu.buaa.practice.mr.HyperLogLogIPMapper;
-import cn.edu.buaa.practice.mr.HyperLogLogIPReducer;
+import cn.edu.buaa.practice.bean.TextTextPair;
+import cn.edu.buaa.practice.mr.HourPvMapper;
+import cn.edu.buaa.practice.mr.HourPvReducer;
   
-public class IPCountJob {  
+public class HourPvCountJob {  
     public static void main(String[] args) throws Exception {
     	if(args.length!=2){
     		System.err.println("Usage: inputPath outputPath");
     		System.exit(1);
     	}
         Configuration conf = new Configuration();  
-        Job job = new Job(conf);  
-        job.setJarByClass(IPCountJob.class);  
-        job.setJobName("STAT_UV");  
+        @SuppressWarnings("deprecation")
+		Job job = new Job(conf);  
+        job.setJarByClass(HourPvCountJob.class);  
+        job.setJobName("STAT_TIME");  		
   
         job.setOutputKeyClass(Text.class);  
-        job.setOutputValueClass(Text.class);  
+        job.setOutputValueClass(IntWritable.class);  
   
-        job.setMapOutputKeyClass(Text.class);
-        job.setMapOutputValueClass(BytesWritable.class);
+        job.setMapOutputKeyClass(TextTextPair.class);
+        job.setMapOutputValueClass(IntWritable.class);
         
-        job.setMapperClass(HyperLogLogIPMapper.class);
-        job.setCombinerClass(HyperLogLogIPCombiner.class);
-        job.setReducerClass(HyperLogLogIPReducer.class);  
+        job.setMapperClass(HourPvMapper.class);
+        job.setReducerClass(HourPvReducer.class);  
   
         job.setInputFormatClass(TextInputFormat.class);  
         job.setOutputFormatClass(TextOutputFormat.class);  
