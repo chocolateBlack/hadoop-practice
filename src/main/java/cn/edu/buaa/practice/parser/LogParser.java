@@ -5,10 +5,10 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
-import cn.edu.buaa.practice.bean.LogRecord;
-
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
+
+import cn.edu.buaa.practice.bean.LogRecord;
 
 public class LogParser {
 	public static Optional<LogRecord> parse(String value) {
@@ -41,8 +41,17 @@ public class LogParser {
 		userAgent = StringUtils.removeEnd(userAgent, "\"");
 		record.setHttpUserAgent(userAgent);
 
-		Optional<LogRecord> result = Optional.fromNullable(record);
-		return result;
+        //过滤掉爬虫访问的日志记录
+        if (record.getRequestUrl().contains("robots.txt")
+            || StringUtils.containsAny(record.getHttpUserAgent(),
+                "Sogou web spider", "bingbot", "YandexBot", "msnbot",
+                "YoudaoBot", "DNSPod-Monitor", "Googlebot", "CompSpyBot",
+                "AhrefsBot", "Ezooms", "coccoc", "MJ12bot", "SurveyBot",
+                "360Spider", "ia_archiver", "YisouSpider")) {
+            return Optional.absent();
+        }
+
+        return Optional.fromNullable(record);
 	}
 
 }
