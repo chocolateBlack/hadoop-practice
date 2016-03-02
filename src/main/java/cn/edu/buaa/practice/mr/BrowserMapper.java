@@ -13,7 +13,7 @@ import cn.edu.buaa.practice.parser.LogParser;
 
 import com.google.common.base.Optional;
 
-public class UserAgentMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
+public class BrowserMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
 
 	private final IntWritable one = new IntWritable(1);
 	private Text agent = new Text();
@@ -25,7 +25,7 @@ public class UserAgentMapper extends Mapper<LongWritable, Text, Text, IntWritabl
 
 		if (logRecord.isPresent()) {
 			LogRecord log = logRecord.get();
-			agent.set(log.getHttpUserAgent());
+			agent.set(log.getBrowserName() == null ? "-" : log.getBrowserName());
 			context.write(agent, one);
 		} else {
 			Counter count = context.getCounter("LogRecord_Parser",

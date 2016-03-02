@@ -9,8 +9,12 @@ import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 
 import cn.edu.buaa.practice.bean.LogRecord;
+import cn.edu.buaa.practice.uamatcher.MatcherChain;
+import cn.edu.buaa.practice.uamatcher.MatcherChainFactory;
+import cn.edu.buaa.practice.uamatcher.UserAgentInfo;
 
 public class LogParser {
+	private static MatcherChain BROWSER_MATCHER_CHAIN = MatcherChainFactory.create();
 	public static Optional<LogRecord> parse(String value) {
 		if (!value.contains("HTTP")) {
 			//过滤掉不包含HTTP字样的记录
@@ -26,8 +30,9 @@ public class LogParser {
 		record.setTimeLocal(splitStrings.get(3).substring(1));
 		record.setRequestMethod(splitStrings.get(5).substring(1));
 		record.setRequestUrl(splitStrings.get(6));
+		record.setNormalizedRequestUri(cn.edu.buaa.practice.util.StringUtils.normalizeUri(record.getRequestUrl()));
 		record.setRequestHttpVersion(StringUtils.removeEnd(splitStrings.get(7), "\""));
-
+		
 		String request = Joiner.on(" ").join(
 				new String[] { record.getRequestMethod(), record.getRequestUrl(), record.getRequestHttpVersion() });
 		record.setRequest(request);
@@ -35,12 +40,21 @@ public class LogParser {
 
 		record.setBodyBytesSent(Long.valueOf(splitStrings.get(9)));
 		record.setHttpReferer(splitStrings.get(10).replace("\"", ""));
-
+		record.setNormalizedReferer(record.getHttpReferer());
+		
 		String userAgent = Joiner.on(" ").join(splitStrings.subList(11, splitStrings.size()));
 		userAgent = StringUtils.removeStart(userAgent, "\"");
 		userAgent = StringUtils.removeEnd(userAgent, "\"");
 		record.setHttpUserAgent(userAgent);
 
+		if(userAgent != null && userAgent.length() > 0) {
+			UserAgentInfo userAgentInfo = BROWSER_MATCHER_CHAIN.match(userAgent);
+			if(userAgentInfo != null) {
+				record.setBrowserName(userAgentInfo.getBrowserName());
+				record.setBrowserVersionName(userAgentInfo.getBrowserVersionName());
+			}
+		}
+		
         //过滤掉爬虫访问的日志记录
         if (record.getRequestUrl().contains("robots.txt")
             || StringUtils.containsAny(record.getHttpUserAgent(),

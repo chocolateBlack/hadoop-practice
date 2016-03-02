@@ -25,7 +25,7 @@ public class PVMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
 
 		if (logRecord.isPresent()) {
 			LogRecord log = logRecord.get();
-			requestUrl.set(log.getRequestUrl());
+			requestUrl.set(log.getNormalizedRequestUri());
 			context.write(requestUrl, one);
 		} else {
 			Counter count = context.getCounter("LogRecord_Parser",

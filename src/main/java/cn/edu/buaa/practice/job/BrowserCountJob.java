@@ -10,10 +10,10 @@ import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 
-import cn.edu.buaa.practice.mr.UserAgentMapper;
-import cn.edu.buaa.practice.mr.UserAgentReducer;
+import cn.edu.buaa.practice.mr.BrowserMapper;
+import cn.edu.buaa.practice.mr.BrowserReducer;
   
-public class UserAgentCountJob {  
+public class BrowserCountJob {  
     public static void main(String[] args) throws Exception {
     	if(args.length!=2){
     		System.err.println("Usage: inputPath outputPath");
@@ -21,14 +21,14 @@ public class UserAgentCountJob {
     	}
         Configuration conf = new Configuration();  
         Job job = new Job(conf);  
-        job.setJarByClass(UserAgentCountJob.class);  
+        job.setJarByClass(BrowserCountJob.class);  
         job.setJobName("STAT_USER_AGENT");  
   
         job.setOutputKeyClass(Text.class);  
         job.setOutputValueClass(IntWritable.class);  
   
-        job.setMapperClass(UserAgentMapper.class);  
-        job.setReducerClass(UserAgentReducer.class);  
+        job.setMapperClass(BrowserMapper.class);  
+        job.setReducerClass(BrowserReducer.class);  
   
         job.setInputFormatClass(TextInputFormat.class);  
         job.setOutputFormatClass(TextOutputFormat.class);  

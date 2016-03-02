@@ -21,12 +21,18 @@ public class LogRecord {
 	private long bodyBytesSent; //body_bytes_sent: 记录发送给客户端文件主体内容大小, 19939
 	private String httpReferer; //http_referer: 用来记录从那个页面链接访问过来的, “http://www.angularjs.cn/A00n”
 	private String httpUserAgent; //http_user_agent: 记录客户浏览器的相关信息, “Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36″
-
+	
+	private String browserName;
+	private String browserVersionName;
+	
 	//定义辅助变量
 	private String requestMethod;//GET,POST,...
 	private String requestUrl;
 	private String requestHttpVersion;//HTTP/1.1
 
+	private String normalizedRequestUri;
+	private String normalizedReferer;
+	
 	public void setRequest(String request) {
 		this.request = request;
 	}
@@ -113,6 +119,62 @@ public class LogRecord {
 
 	public void setHttpUserAgent(String httpUserAgent) {
 		this.httpUserAgent = httpUserAgent;
+	}
+
+	/**
+	 * @return the browserName
+	 */
+	public String getBrowserName() {
+		return browserName;
+	}
+
+	/**
+	 * @param browserName the browserName to set
+	 */
+	public void setBrowserName(String browserName) {
+		this.browserName = browserName;
+	}
+
+	/**
+	 * @return the browserVersionName
+	 */
+	public String getBrowserVersionName() {
+		return browserVersionName;
+	}
+
+	/**
+	 * @param browserVersionName the browserVersionName to set
+	 */
+	public void setBrowserVersionName(String browserVersionName) {
+		this.browserVersionName = browserVersionName;
+	}
+
+	/**
+	 * @return the normalizedRequestUri
+	 */
+	public String getNormalizedRequestUri() {
+		return normalizedRequestUri;
+	}
+
+	/**
+	 * @param normalizedRequestUri the normalizedRequestUri to set
+	 */
+	public void setNormalizedRequestUri(String normalizedRequestUri) {
+		this.normalizedRequestUri = normalizedRequestUri;
+	}
+
+	/**
+	 * @return the normalizedReferer
+	 */
+	public String getNormalizedReferer() {
+		return normalizedReferer;
+	}
+
+	/**
+	 * @param normalizedReferer the normalizedReferer to set
+	 */
+	public void setNormalizedReferer(String normalizedReferer) {
+		this.normalizedReferer = normalizedReferer;
 	}
 
 	private static SimpleDateFormat df = new SimpleDateFormat("dd/MMM/yyyy:HH:mm:ss", Locale.US);

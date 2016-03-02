@@ -24,6 +24,12 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>6.8.5</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>3.4</version>
@@ -67,7 +73,7 @@
                 <configuration>  
                     <archive>  
                         <manifest>
-                            <mainClass>cn.edu.buaa.practice.job.IPCountJob</mainClass>  
+                            <mainClass>cn.edu.buaa.practice.util.KPIJobsBootstrap</mainClass>  
                         </manifest>  
                     </archive>  
                 </configuration>  
@@ -78,7 +84,8 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>cn.edu.buaa.practice.job.IPCountJob</mainClass>
+							<mainClass>cn.edu.buaa.practice.util.KPIJobsBootstrap</mainClass>
+							<!-- <mainClass>cn.edu.buaa.practice.job.BrowserCountJob</mainClass> -->
 						</manifest>
 					</archive>
 					<descriptorRefs>

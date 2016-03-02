@@ -27,7 +27,7 @@ public class HyperLogLogIPMapper extends Mapper<Object, Text, Text, BytesWritabl
             
             if (logRecord.isPresent()) {
                 LogRecord log =  logRecord.get();
-                requestUrl.set(log.getRequestUrl());
+                requestUrl.set(log.getNormalizedRequestUri());
                 // ip.set(log.getRemoteAddr());
                 HyperLogLog hll = new HyperLogLog(16);
                 hll.offer(log.getRemoteAddr());

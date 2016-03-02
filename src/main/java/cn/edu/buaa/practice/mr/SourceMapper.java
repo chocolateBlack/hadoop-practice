@@ -25,7 +25,7 @@ public class SourceMapper extends Mapper<LongWritable, Text, Text, IntWritable> 
 
 		if (logRecord.isPresent()) {
 			LogRecord log = logRecord.get();
-			referer.set(log.getHttpReferer());
+			referer.set(log.getNormalizedReferer());
 			context.write(referer, one);
 		} else {
 			Counter count = context.getCounter("LogRecord_Parser",
