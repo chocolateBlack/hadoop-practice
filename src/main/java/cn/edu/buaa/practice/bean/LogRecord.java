@@ -25,6 +25,8 @@ public class LogRecord {
 	private String browserName;
 	private String browserVersionName;
 	
+	private byte deviceType;
+	
 	//定义辅助变量
 	private String requestMethod;//GET,POST,...
 	private String requestUrl;
@@ -147,6 +149,20 @@ public class LogRecord {
 	 */
 	public void setBrowserVersionName(String browserVersionName) {
 		this.browserVersionName = browserVersionName;
+	}
+
+	/**
+	 * @return the deviceType
+	 */
+	public byte getDeviceType() {
+		return deviceType;
+	}
+
+	/**
+	 * @param deviceType the deviceType to set
+	 */
+	public void setDeviceType(byte deviceType) {
+		this.deviceType = deviceType;
 	}
 
 	/**

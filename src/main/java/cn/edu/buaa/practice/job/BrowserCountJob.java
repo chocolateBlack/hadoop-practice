@@ -22,12 +22,13 @@ public class BrowserCountJob {
         Configuration conf = new Configuration();  
         Job job = new Job(conf);  
         job.setJarByClass(BrowserCountJob.class);  
-        job.setJobName("STAT_USER_AGENT");  
+        job.setJobName("STAT_BROWSER");  
   
         job.setOutputKeyClass(Text.class);  
         job.setOutputValueClass(IntWritable.class);  
   
-        job.setMapperClass(BrowserMapper.class);  
+        job.setMapperClass(BrowserMapper.class); 
+        job.setCombinerClass(BrowserReducer.class);  
         job.setReducerClass(BrowserReducer.class);  
   
         job.setInputFormatClass(TextInputFormat.class);  

@@ -79,7 +79,7 @@ public class TextTextPair implements WritableComparable<TextTextPair> {
 	}
 	@Override
 	public String toString() {
-		return this.t1.toString() + " " + this.t2.toString();
+		return this.t1.toString() + "/" + this.t2.toString();
 	}
 
 }

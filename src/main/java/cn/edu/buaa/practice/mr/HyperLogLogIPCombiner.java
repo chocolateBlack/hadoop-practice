@@ -24,13 +24,19 @@ public class HyperLogLogIPCombiner extends
                 Context context) throws IOException, InterruptedException {
 			HyperLogLog hllMerged = new HyperLogLog(16);
 			for (BytesWritable val : ips) {
-				HyperLogLog hll = HyperLogLog.Builder.build(val.copyBytes());
-            	try {
-					hllMerged.addAll(hll);
-				} catch (CardinalityMergeException e) {
-					System.err.println("CardinalityMergeException: " + e.getMessage());
-				}
-            	System.out.println("combine key:" + key + ", value=" + hllMerged.cardinality());
+				byte[] bytes = val.copyBytes();
+				if(bytes.length < 1024) {
+					// raw ip
+					hllMerged.offer(bytes);
+				} else {
+					// hll bytes
+					HyperLogLog hll = HyperLogLog.Builder.build(val.copyBytes());
+	            	try {
+						hllMerged.addAll(hll);
+					} catch (CardinalityMergeException e) {
+						System.err.println("CardinalityMergeException: " + e.getMessage());
+					}
+				}            	
             }   
             context.write(key, new BytesWritable(hllMerged.getBytes()));  
         }  

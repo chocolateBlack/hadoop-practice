@@ -2,6 +2,7 @@ package cn.edu.buaa.practice.job;
   
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.ByteWritable;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
@@ -10,10 +11,11 @@ import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 
-import cn.edu.buaa.practice.mr.SourceMapper;
-import cn.edu.buaa.practice.mr.SourceReducer;
+import cn.edu.buaa.practice.mr.DeviceCombiner;
+import cn.edu.buaa.practice.mr.DeviceMapper;
+import cn.edu.buaa.practice.mr.DeviceReducer;
   
-public class SourceCountJob {  
+public class DeviceTypeCountJob {  
     public static void main(String[] args) throws Exception {
     	if(args.length!=2){
     		System.err.println("Usage: inputPath outputPath");
@@ -21,15 +23,18 @@ public class SourceCountJob {
     	}
         Configuration conf = new Configuration();  
         Job job = new Job(conf);  
-        job.setJarByClass(SourceCountJob.class);  
-        job.setJobName("STAT_SOURCE");  
-  
+        job.setJarByClass(DeviceTypeCountJob.class);  
+        job.setJobName("STAT_DEVICE");  
+        
+        job.setMapOutputKeyClass(ByteWritable.class);
+        job.setMapOutputValueClass(IntWritable.class);
+        
         job.setOutputKeyClass(Text.class);  
         job.setOutputValueClass(IntWritable.class);  
   
-        job.setMapperClass(SourceMapper.class);  
-        job.setReducerClass(SourceReducer.class);  
-        job.setCombinerClass(SourceReducer.class);
+        job.setMapperClass(DeviceMapper.class); 
+        job.setCombinerClass(DeviceCombiner.class);  
+        job.setReducerClass(DeviceReducer.class);  
   
         job.setInputFormatClass(TextInputFormat.class);  
         job.setOutputFormatClass(TextOutputFormat.class);  

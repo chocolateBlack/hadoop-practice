@@ -24,14 +24,21 @@ public class HyperLogLogIPReducer extends
                 Context context) throws IOException, InterruptedException {
 			HyperLogLog hllMerged = new HyperLogLog(16);
 			for (BytesWritable val : hlls) {
-				HyperLogLog hll = HyperLogLog.Builder.build(val.copyBytes());
-            	try {
-					hllMerged.addAll(hll);
-				} catch (CardinalityMergeException e) {
-					System.err.println("CardinalityMergeException: " + e.getMessage());
-				}
-            	System.out.println("reduce key:" + key + ", value=" + hllMerged.cardinality());
-            }  
+				byte[] bytes = val.copyBytes();
+				if(bytes.length < 1024) {
+					// raw ip
+					hllMerged.offer(bytes);
+				} else {
+					// hll bytes
+					HyperLogLog hll = HyperLogLog.Builder.build(val.copyBytes());
+	            	try {
+						hllMerged.addAll(hll);
+					} catch (CardinalityMergeException e) {
+						System.err.println("CardinalityMergeException: " + e.getMessage());
+					}
+				}            	
+            } 
+			
             context.write(key, new IntWritable((int)hllMerged.cardinality()));  
         }  
     }  

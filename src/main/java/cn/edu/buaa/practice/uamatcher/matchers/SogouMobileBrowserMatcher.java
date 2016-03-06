@@ -5,7 +5,7 @@ import cn.edu.buaa.practice.uamatcher.UserAgentInfo;
 import cn.edu.buaa.practice.util.StringUtils;
 
 /**
- * Created by wushang on 15/9/17.
+ * Created by bingwang on 16/2/21.
  */
 public class SogouMobileBrowserMatcher implements Matcher {
 

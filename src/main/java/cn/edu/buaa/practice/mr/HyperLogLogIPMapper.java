@@ -29,9 +29,7 @@ public class HyperLogLogIPMapper extends Mapper<Object, Text, Text, BytesWritabl
                 LogRecord log =  logRecord.get();
                 requestUrl.set(log.getNormalizedRequestUri());
                 // ip.set(log.getRemoteAddr());
-                HyperLogLog hll = new HyperLogLog(16);
-                hll.offer(log.getRemoteAddr());
-                context.write(requestUrl, new BytesWritable(hll.getBytes()));
+                context.write(requestUrl, new BytesWritable(log.getRemoteAddr().getBytes()));
 			} else {
 				Counter count = context.getCounter("LogRecord_Parser", "logRecord_Value_Is_Absent");
 				count.increment(1);

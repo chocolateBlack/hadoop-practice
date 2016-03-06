@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 
+import cn.edu.buaa.practice.bean.DeviceType;
 import cn.edu.buaa.practice.bean.LogRecord;
 import cn.edu.buaa.practice.uamatcher.MatcherChain;
 import cn.edu.buaa.practice.uamatcher.MatcherChainFactory;
@@ -40,7 +41,7 @@ public class LogParser {
 
 		record.setBodyBytesSent(Long.valueOf(splitStrings.get(9)));
 		record.setHttpReferer(splitStrings.get(10).replace("\"", ""));
-		record.setNormalizedReferer(record.getHttpReferer());
+		record.setNormalizedReferer(cn.edu.buaa.practice.util.StringUtils.normalizeUri(record.getHttpReferer()));
 		
 		String userAgent = Joiner.on(" ").join(splitStrings.subList(11, splitStrings.size()));
 		userAgent = StringUtils.removeStart(userAgent, "\"");
@@ -52,6 +53,7 @@ public class LogParser {
 			if(userAgentInfo != null) {
 				record.setBrowserName(userAgentInfo.getBrowserName());
 				record.setBrowserVersionName(userAgentInfo.getBrowserVersionName());
+				record.setDeviceType(userAgentInfo.isMobileDevice() ? DeviceType.MOBILE : DeviceType.PC);
 			}
 		}
 		

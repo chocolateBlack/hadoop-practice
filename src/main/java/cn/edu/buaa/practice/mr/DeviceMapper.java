@@ -2,6 +2,7 @@ package cn.edu.buaa.practice.mr;
 
 import java.io.IOException;
 
+import org.apache.hadoop.io.ByteWritable;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
@@ -13,10 +14,10 @@ import cn.edu.buaa.practice.parser.LogParser;
 
 import com.google.common.base.Optional;
 
-public class BrowserMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
+public class DeviceMapper extends Mapper<LongWritable, Text, ByteWritable, IntWritable> {
 
 	private final IntWritable one = new IntWritable(1);
-	private Text agent = new Text();
+	private ByteWritable deviceType = new ByteWritable();
 
 	public void map(LongWritable key, Text value, Context context)
 			throws IOException, InterruptedException {
@@ -25,8 +26,8 @@ public class BrowserMapper extends Mapper<LongWritable, Text, Text, IntWritable>
 
 		if (logRecord.isPresent()) {
 			LogRecord log = logRecord.get();
-			agent.set(log.getBrowserName() == null ? "-" : ("\"" + log.getBrowserName() + "\""));
-			context.write(agent, one);
+			deviceType.set(log.getDeviceType());
+			context.write(deviceType, one);
 		} else {
 			Counter count = context.getCounter("LogRecord_Parser",
 					"logRecord_Value_Is_Absent");

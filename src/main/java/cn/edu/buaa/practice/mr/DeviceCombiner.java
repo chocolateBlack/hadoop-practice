@@ -1,0 +1,19 @@
+package cn.edu.buaa.practice.mr;
+
+import java.io.IOException;
+
+import org.apache.hadoop.io.ByteWritable;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.mapreduce.Reducer;
+
+public class DeviceCombiner extends Reducer<ByteWritable, IntWritable, ByteWritable, IntWritable> {
+	public void reduce(ByteWritable key, Iterable<IntWritable> values, Context context)
+			throws IOException, InterruptedException {
+		int sum = 0;
+		for (IntWritable val : values) {
+			sum += val.get();
+		}
+
+		context.write(key, new IntWritable(sum));
+	}
+}

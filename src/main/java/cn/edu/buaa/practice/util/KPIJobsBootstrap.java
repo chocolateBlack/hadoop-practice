@@ -21,6 +21,7 @@ package cn.edu.buaa.practice.util;
 import org.apache.hadoop.util.ProgramDriver;
 
 import cn.edu.buaa.practice.job.BrowserCountJob;
+import cn.edu.buaa.practice.job.DeviceTypeCountJob;
 import cn.edu.buaa.practice.job.HourPvCountJob;
 import cn.edu.buaa.practice.job.IPCountJob;
 import cn.edu.buaa.practice.job.PVCountJob;
@@ -40,6 +41,7 @@ public class KPIJobsBootstrap {
       pgd.addClass("uvcount", IPCountJob.class, "MR job to count uv.");
       pgd.addClass("timecount", HourPvCountJob.class, "MR job to count by datetime/hour.");
       pgd.addClass("browsercount", BrowserCountJob.class, "MR job to count browser.");
+      pgd.addClass("devicecount", DeviceTypeCountJob.class, "MR job to count by device type.");
       pgd.addClass("sourcecount", SourceCountJob.class, "MR job to count by source/referer.");
       exitCode = pgd.run(argv);
     }
