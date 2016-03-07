@@ -18,7 +18,7 @@ public class MSIEBrowserMatcher implements Matcher {
 	private final int KEYWORD_LENGTH = KEYWORDS[0].length();
 	private final static String TRIDENT = "Trident/";
 	/* (non-Javadoc)
-	 * @see cn.edu.buaa.practice.uamatcher.Matcher#match(java.lang.String, cn.edu.buaa.practice.uamatcher.UserAgentInfo, int)
+	 * @see com.networkbench.newlens.datacollector.browser.uamatcher.Matcher#match(java.lang.String, com.networkbench.newlens.datacollector.browser.uamatcher.UserAgentInfo, int)
 	 */
 	public void match(String userAgent, UserAgentInfo userAgentInfo, int beginIndex) {
 		//check IEMobile
@@ -58,7 +58,7 @@ public class MSIEBrowserMatcher implements Matcher {
 	}
 
 	/* (non-Javadoc)
-	 * @see cn.edu.buaa.practice.uamatcher.Matcher#tryMatch(java.lang.String)
+	 * @see com.networkbench.newlens.datacollector.browser.uamatcher.Matcher#tryMatch(java.lang.String)
 	 */
 	public int tryMatch(String userAgent) {
 		return StringUtils.indexOfAny(userAgent, KEYWORDS);
