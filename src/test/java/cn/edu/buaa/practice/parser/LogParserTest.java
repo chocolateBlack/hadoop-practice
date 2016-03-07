@@ -1,4 +1,4 @@
-package cn.edu.buaa.binarywang.hadoop.practice;
+package cn.edu.buaa.practice.parser;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package cn.edu.buaa.practice.job.binarywang;
+package cn.edu.buaa.practice.job;
 
 import java.io.IOException;
 
@@ -16,7 +16,7 @@ import org.apache.log4j.BasicConfigurator;
 import cn.edu.buaa.practice.mr.PVMapper;
 import cn.edu.buaa.practice.mr.PVReducer;
 
-public class PVCountJob {
+public class PVCountJobTest {
 
     public static void main(String[] args)
             throws IOException, ClassNotFoundException, InterruptedException {
@@ -29,7 +29,7 @@ public class PVCountJob {
         Configuration conf = new Configuration();
         Job job = Job.getInstance(conf, "pv count");
 
-        job.setJarByClass(PVCountJob.class);
+        job.setJarByClass(PVCountJobTest.class);
 
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);

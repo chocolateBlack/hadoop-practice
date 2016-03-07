@@ -1,4 +1,4 @@
-package cn.edu.buaa.practice.job.binarywang;
+package cn.edu.buaa.practice.job;
 
 public class HadoopConfig {
 
