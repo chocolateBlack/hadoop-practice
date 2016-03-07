@@ -26,10 +26,10 @@ public class HyperLogLogIPCombiner extends
 			for (BytesWritable val : ips) {
 				byte[] bytes = val.copyBytes();
 				if(bytes.length < 1024) {
-					// raw ip
+					// 来自Mapper的原始IP（非HLL对象），通过序列化后的字节数区分，HLL序列化后的字节数 > 1K，原始IP通常为几十个字节
 					hllMerged.offer(bytes);
 				} else {
-					// hll bytes
+					// 合并combiner/reducer阶段的HLL对象
 					HyperLogLog hll = HyperLogLog.Builder.build(val.copyBytes());
 	            	try {
 						hllMerged.addAll(hll);
