@@ -7,6 +7,8 @@ import java.nio.charset.UnsupportedCharsetException;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -720,5 +722,17 @@ public class StringUtils {
                 return true;
         }
         return false;
+    }
+
+    public static List<String> iterableToList(Iterable<String> iterable) {
+        List<String> result = new ArrayList<String>();
+
+        Iterator<String> iterator = iterable.iterator();
+        while (iterator.hasNext()) {
+            result.add(iterator.next());
+        }
+
+        return Collections.unmodifiableList(result);
+
     }
 }

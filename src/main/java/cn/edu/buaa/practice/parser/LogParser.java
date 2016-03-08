@@ -1,12 +1,12 @@
 package cn.edu.buaa.practice.parser;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
+import com.google.common.base.Splitter;
 
 import cn.edu.buaa.practice.bean.DeviceType;
 import cn.edu.buaa.practice.bean.LogRecord;
@@ -22,8 +22,9 @@ public class LogParser {
 			return Optional.absent();
 		}
 
-		List<String> splitStrings = Arrays.asList(value.split(" "));
-//		List<String> splitStrings = Splitter.on(" ").splitToList(value);
+//		List<String> splitStrings = Arrays.asList(value.split(" "));
+        List<String> splitStrings = cn.edu.buaa.practice.util.StringUtils
+            .iterableToList(Splitter.on(" ").omitEmptyStrings().split(value));
 
 		LogRecord record = new LogRecord();
 		record.setRemoteAddr(splitStrings.get(0));
@@ -37,6 +38,7 @@ public class LogParser {
 		String request = Joiner.on(" ").join(
 				new String[] { record.getRequestMethod(), record.getRequestUrl(), record.getRequestHttpVersion() });
 		record.setRequest(request);
+        System.err.println(value);
 		record.setStatus(Integer.valueOf(splitStrings.get(8)));
 
 		record.setBodyBytesSent(Long.valueOf(splitStrings.get(9)));
