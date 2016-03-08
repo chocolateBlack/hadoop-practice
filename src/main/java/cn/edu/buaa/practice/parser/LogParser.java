@@ -22,6 +22,7 @@ public class LogParser {
 			return Optional.absent();
 		}
 
+        value = value.replace(", ", ",");
 //		List<String> splitStrings = Arrays.asList(value.split(" "));
         List<String> splitStrings = cn.edu.buaa.practice.util.StringUtils
             .iterableToList(Splitter.on(" ").omitEmptyStrings().split(value));
@@ -38,7 +39,6 @@ public class LogParser {
 		String request = Joiner.on(" ").join(
 				new String[] { record.getRequestMethod(), record.getRequestUrl(), record.getRequestHttpVersion() });
 		record.setRequest(request);
-        System.err.println(value);
 		record.setStatus(Integer.valueOf(splitStrings.get(8)));
 
 		record.setBodyBytesSent(Long.valueOf(splitStrings.get(9)));
