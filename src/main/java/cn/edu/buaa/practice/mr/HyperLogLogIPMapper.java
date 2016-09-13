@@ -3,8 +3,6 @@ package cn.edu.buaa.practice.mr;
 import java.io.IOException;
 
 import org.apache.hadoop.io.BytesWritable;
-import org.apache.hadoop.io.IntWritable;
-import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Counter;
 import org.apache.hadoop.mapreduce.Mapper;
@@ -12,7 +10,6 @@ import org.apache.hadoop.mapreduce.Mapper;
 import cn.edu.buaa.practice.bean.LogRecord;
 import cn.edu.buaa.practice.parser.LogParser;
 
-import com.clearspring.analytics.stream.cardinality.HyperLogLog;
 import com.google.common.base.Optional;
 
 public class HyperLogLogIPMapper extends Mapper<Object, Text, Text, BytesWritable> {  

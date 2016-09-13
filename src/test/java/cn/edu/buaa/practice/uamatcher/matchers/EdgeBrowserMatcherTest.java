@@ -6,8 +6,6 @@ import cn.edu.buaa.practice.uamatcher.UserAgentInfo;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.*;
-
 /**
  * Created by wushang on 15/11/18.
  */

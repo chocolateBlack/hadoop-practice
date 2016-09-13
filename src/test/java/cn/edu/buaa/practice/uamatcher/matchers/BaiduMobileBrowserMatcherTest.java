@@ -7,8 +7,6 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.*;
-
 /**
  * Created by wushang on 15/10/30.
  */

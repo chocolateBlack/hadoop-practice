@@ -7,8 +7,6 @@ import org.junit.Test;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 
-import static org.testng.Assert.*;
-
 /**
  * Created by wushang on 15/10/28.
  */

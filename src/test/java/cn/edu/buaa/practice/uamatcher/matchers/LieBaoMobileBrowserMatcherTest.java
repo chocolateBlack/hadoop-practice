@@ -7,8 +7,6 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.*;
-
 /**
  * Created by wushang on 15/9/17.
  * ios的ua没有猎豹的关键字，无法识别。
